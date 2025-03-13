@@ -38,6 +38,22 @@ function createArrayBars(array, containerId) {
 function updateComparisonInfo(text) {
     const comparisonInfo = document.getElementById('comparison-info');
     comparisonInfo.textContent = text;
+    
+    // If the text indicates sorting is complete, apply the success highlight
+    if (text === 'Array sorted!') {
+        highlightSortingSuccess();
+    }
+}
+
+// Apply success highlight effect to the comparison info
+function highlightSortingSuccess() {
+    const comparisonInfo = document.getElementById('comparison-info');
+    comparisonInfo.classList.add('success-highlight');
+    
+    // Remove the class after the animation completes
+    setTimeout(() => {
+        comparisonInfo.classList.remove('success-highlight');
+    }, 2000); // Match the animation duration in CSS
 }
 
 // Sleep function for animations - increased duration for slower animation

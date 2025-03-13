@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radix Sort Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="confetti.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="radix.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Radix Sort Visualization</h1>
+            <p>Watch how radix sort processes numbers digit by digit, from least significant to most significant</p>
+        </header>
+        
+        <main>
+            <div class="visualization-container">
+                <div class="controls">
+                    <button id="sort-button">Sort</button>
+                    <button id="reset-button">Reset</button>
+                </div>
+                
+                <div id="array-container" class="array-container"></div>
+                
+                <div id="comparison-info" class="comparison-info"></div>
+            </div>
+            
+            <div class="explanation">
+                <h3>How Radix Sort Works</h3>
+                <p>Radix Sort is a non-comparative sorting algorithm that sorts numbers by processing individual digits. It works by distributing elements into buckets according to their digits, starting from the least significant digit to the most significant.</p>
+                <p>Unlike comparison-based algorithms, Radix Sort's time complexity is not bounded by O(n log n). It can achieve linear time complexity for fixed-length integers.</p>
+                <p><strong>Time Complexity:</strong> O(d * n) where d is the number of digits and n is the number of elements.</p>
+                <p><strong>Space Complexity:</strong> O(n + k) where k is the range of the input (typically 10 for decimal digits).</p>
+                
+                <h3>Color Legend</h3>
+                <ul>
+                    <li><span style="color: #f59e0b;">Yellow</span> - Current digit being processed</li>
+                    <li><span style="color: #8b5cf6;">Purple</span> - Elements being placed in buckets</li>
+                    <li><span style="color: #10b981;">Green</span> - Elements in their final sorted position</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" class="back-link">← Back to Algorithm List</a>
+        </main>
+    </div>
+</body>
+</html> 

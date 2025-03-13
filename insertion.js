@@ -77,7 +77,11 @@ async function insertionSort() {
     // Update the array in the data attribute
     arrayContainer.dataset.array = JSON.stringify(array);
     
+    // Show success message with highlight effect
     updateComparisonInfo('Array sorted!');
+    
+    // Wait for the highlight animation to complete before showing confetti
+    await sleep(1000);
     
     // Celebrate with confetti!
     celebrateSuccess();
