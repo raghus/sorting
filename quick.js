@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function startQuickSort() {
     // Disable buttons during sorting
-    document.getElementById('sort-button').disabled = true;
-    document.getElementById('reset-button').disabled = true;
+    const sortButton = document.getElementById('sort-button');
+    const resetButton = document.getElementById('reset-button');
+    
+    sortButton.disabled = true;
+    resetButton.disabled = true;
     
     // Get the array from the data attribute
     const arrayContainer = document.getElementById('array-container');
@@ -37,8 +40,8 @@ async function startQuickSort() {
     celebrateSuccess();
     
     // Re-enable buttons
-    document.getElementById('sort-button').disabled = false;
-    document.getElementById('reset-button').disabled = false;
+    sortButton.disabled = false;
+    resetButton.disabled = false;
 }
 
 async function quickSort(array, low, high, maxValue) {

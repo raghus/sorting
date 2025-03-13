@@ -19,7 +19,7 @@ class Confetti {
         this.confettiColors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#277da1'];
         this.confettiShapes = ['circle', 'square', 'triangle'];
         this.confettiSize = { min: 5, max: 12 };
-        this.confettiDuration = { min: 2000, max: 5000 }; // 2-5 seconds
+        this.confettiDuration = { min: 2000, max: 6000 }; // 2-6 seconds for more variation
         
         this.confettiElements = [];
     }
@@ -59,38 +59,48 @@ class Confetti {
         element.style.top = '-20px';
         element.style.left = `${startX}px`;
         
-        // Animation properties
+        // Animation properties with more varied speeds
         const duration = Math.random() * (this.confettiDuration.max - this.confettiDuration.min) + this.confettiDuration.min;
         const delay = Math.random() * 500; // Stagger the start times
         
+        // Physics properties - heavier pieces fall faster
+        const weight = Math.random() * 0.6 + 0.4; // 0.4-1.0 weight factor
+        const fallSpeed = (1 / weight) * 0.8; // Inverse relationship - lighter pieces fall slower
+        
         // Random movement patterns
-        const endX = startX + (Math.random() * 200 - 100); // Move left or right randomly
-        const endY = window.innerHeight + 100; // Ensure it goes below the screen
+        const endX = startX + (Math.random() * 300 - 150); // More horizontal movement
+        const endY = window.innerHeight + 20; // Just below the screen
         
         // Random rotation
         const startRotation = Math.random() * 360;
         const endRotation = startRotation + Math.random() * 720 * (Math.random() > 0.5 ? 1 : -1);
         
-        // Random horizontal swings during fall
+        // Random horizontal swings during fall with varying amplitudes
         const keyframes = [];
-        const steps = 10; // Number of keyframes
+        const steps = 12; // More keyframes for smoother animation
+        const swingFrequency = 1 + Math.random() * 2; // How many complete swings
+        const swingAmplitude = 30 + Math.random() * 70; // How wide the swings are
         
         for (let i = 0; i <= steps; i++) {
             const progress = i / steps;
-            const x = startX + (endX - startX) * progress;
-            const y = progress * endY;
             
-            // Add some horizontal swing with sine wave
-            const swingAmount = 50 * Math.sin(progress * Math.PI * (2 + Math.random() * 2));
+            // Non-linear fall - accelerate slightly to simulate gravity
+            const gravityProgress = Math.pow(progress, 0.8 + (weight * 0.4)); // Heavier pieces accelerate faster
+            const y = gravityProgress * endY * fallSpeed;
+            
+            // Linear horizontal movement + sine wave for swinging
+            const x = startX + (endX - startX) * progress;
+            const swingAmount = swingAmplitude * Math.sin(progress * Math.PI * swingFrequency);
             const currentX = x + swingAmount;
             
-            // Calculate current rotation
-            const rotation = startRotation + (endRotation - startRotation) * progress;
+            // Calculate current rotation - non-linear to simulate air resistance
+            const rotationProgress = Math.min(1, progress * 1.5); // Rotation happens more at the beginning
+            const rotation = startRotation + (endRotation - startRotation) * rotationProgress;
             
             // Add keyframe
             keyframes.push({
                 transform: `translate(${currentX}px, ${y}px) rotate(${rotation}deg)`,
-                opacity: i === steps ? 0 : element.style.opacity
+                opacity: i === steps ? 0 : (1 - progress * 0.5) * element.style.opacity
             });
         }
         
