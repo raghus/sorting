@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Sort Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <script src="bubble.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bubble Sort Visualization</h1>
+            <p>Watch how bubble sort compares adjacent elements and swaps them if they are in the wrong order</p>
+        </header>
+        
+        <main>
+            <div class="visualization-container">
+                <div class="controls">
+                    <button id="sort-button">Sort</button>
+                    <button id="reset-button">Reset</button>
+                </div>
+                
+                <div id="array-container" class="array-container"></div>
+                
+                <div id="comparison-info" class="comparison-info"></div>
+            </div>
+            
+            <div class="explanation">
+                <h3>How Bubble Sort Works</h3>
+                <p>Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.</p>
+                <p>The algorithm gets its name because smaller elements "bubble" to the top of the list with each iteration.</p>
+                <p><strong>Time Complexity:</strong> O(n²) in worst and average cases, O(n) in best case (when the array is already sorted).</p>
+                <p><strong>Space Complexity:</strong> O(1) as it only requires a single additional memory space for swapping.</p>
+                
+                <h3>Color Legend</h3>
+                <ul>
+                    <li><span style="color: #f59e0b;">Yellow</span> - Elements being compared</li>
+                    <li><span style="color: #8b5cf6;">Purple</span> - Elements being swapped</li>
+                    <li><span style="color: #10b981;">Green</span> - Elements in their final sorted position</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" class="back-link">← Back to Algorithm List</a>
+        </main>
+    </div>
+</body>
+</html> 
