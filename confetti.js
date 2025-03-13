@@ -1,8 +1,17 @@
 // Confetti celebration effect
+let confetti; // Declare confetti variable in global scope
+
 class Confetti {
     constructor() {
         this.container = document.createElement('div');
         this.container.className = 'confetti-container';
+        this.container.style.position = 'fixed';
+        this.container.style.top = '0';
+        this.container.style.left = '0';
+        this.container.style.width = '100%';
+        this.container.style.height = '100%';
+        this.container.style.pointerEvents = 'none'; // Don't block interactions
+        this.container.style.zIndex = '9999';
         document.body.appendChild(this.container);
         
         // Confetti settings
@@ -10,8 +19,7 @@ class Confetti {
         this.confettiColors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590', '#277da1'];
         this.confettiShapes = ['circle', 'square', 'triangle'];
         this.confettiSize = { min: 5, max: 12 };
-        this.confettiSpeed = { min: 3, max: 8 };
-        this.confettiDuration = 3000; // 3 seconds
+        this.confettiDuration = { min: 2000, max: 5000 }; // 2-5 seconds
         
         this.confettiElements = [];
     }
@@ -25,17 +33,14 @@ class Confetti {
         const color = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
         const shape = this.confettiShapes[Math.floor(Math.random() * this.confettiShapes.length)];
         const size = Math.random() * (this.confettiSize.max - this.confettiSize.min) + this.confettiSize.min;
-        const speed = Math.random() * (this.confettiSpeed.max - this.confettiSpeed.min) + this.confettiSpeed.min;
         
         // Set styles
         element.style.backgroundColor = color;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
-        element.style.position = 'fixed';
-        element.style.top = '-20px';
-        element.style.zIndex = '1000';
+        element.style.position = 'absolute';
+        element.style.willChange = 'transform, opacity'; // Optimize animations
         element.style.opacity = Math.random() * 0.5 + 0.5;
-        element.style.transform = 'rotate(0deg)';
         
         // Set shape
         if (shape === 'circle') {
@@ -49,24 +54,64 @@ class Confetti {
             element.style.borderBottom = `${size}px solid ${color}`;
         }
         
-        // Random horizontal position
-        element.style.left = `${Math.random() * 100}vw`;
+        // Random starting position - spread across the top of the screen
+        const startX = Math.random() * window.innerWidth;
+        element.style.top = '-20px';
+        element.style.left = `${startX}px`;
         
         // Animation properties
-        const animationDuration = Math.random() * 2 + 2; // 2-4 seconds
-        const rotationDirection = Math.random() > 0.5 ? 1 : -1;
-        const rotationAmount = Math.random() * 720 * rotationDirection;
-        const horizontalSwing = (Math.random() * 40 - 20); // -20px to +20px
+        const duration = Math.random() * (this.confettiDuration.max - this.confettiDuration.min) + this.confettiDuration.min;
+        const delay = Math.random() * 500; // Stagger the start times
+        
+        // Random movement patterns
+        const endX = startX + (Math.random() * 200 - 100); // Move left or right randomly
+        const endY = window.innerHeight + 100; // Ensure it goes below the screen
+        
+        // Random rotation
+        const startRotation = Math.random() * 360;
+        const endRotation = startRotation + Math.random() * 720 * (Math.random() > 0.5 ? 1 : -1);
+        
+        // Random horizontal swings during fall
+        const keyframes = [];
+        const steps = 10; // Number of keyframes
+        
+        for (let i = 0; i <= steps; i++) {
+            const progress = i / steps;
+            const x = startX + (endX - startX) * progress;
+            const y = progress * endY;
+            
+            // Add some horizontal swing with sine wave
+            const swingAmount = 50 * Math.sin(progress * Math.PI * (2 + Math.random() * 2));
+            const currentX = x + swingAmount;
+            
+            // Calculate current rotation
+            const rotation = startRotation + (endRotation - startRotation) * progress;
+            
+            // Add keyframe
+            keyframes.push({
+                transform: `translate(${currentX}px, ${y}px) rotate(${rotation}deg)`,
+                opacity: i === steps ? 0 : element.style.opacity
+            });
+        }
         
         // Apply animation
-        element.animate([
-            { transform: 'translateY(0) translateX(0) rotate(0deg)', opacity: 1 },
-            { transform: `translateY(100vh) translateX(${horizontalSwing}px) rotate(${rotationAmount}deg)`, opacity: 0 }
-        ], {
-            duration: this.confettiDuration,
+        const animation = element.animate(keyframes, {
+            duration: duration,
+            delay: delay,
             easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
             fill: 'forwards'
         });
+        
+        // Clean up the element when animation is done
+        animation.onfinish = () => {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+                const index = this.confettiElements.indexOf(element);
+                if (index !== -1) {
+                    this.confettiElements.splice(index, 1);
+                }
+            }
+        };
         
         return element;
     }
@@ -78,13 +123,10 @@ class Confetti {
         
         // Create new confetti elements
         for (let i = 0; i < this.confettiCount; i++) {
-            const confetti = this.createConfettiElement();
-            this.container.appendChild(confetti);
-            this.confettiElements.push(confetti);
+            const confettiElement = this.createConfettiElement();
+            this.container.appendChild(confettiElement);
+            this.confettiElements.push(confettiElement);
         }
-        
-        // Remove confetti after duration
-        setTimeout(() => this.stop(), this.confettiDuration + 100);
     }
     
     // Stop and remove all confetti
@@ -98,10 +140,16 @@ class Confetti {
     }
 }
 
-// Create a global confetti instance
-const confetti = new Confetti();
-
 // Function to trigger confetti celebration
 function celebrateSuccess() {
+    // Initialize confetti if it doesn't exist yet
+    if (!confetti) {
+        confetti = new Confetti();
+    }
     confetti.start();
-} 
+}
+
+// Initialize confetti when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    confetti = new Confetti();
+}); 
