@@ -12,10 +12,11 @@ A web-based application to help people visualize and understand how different so
   - **Heap Sort**: A comparison-based sorting algorithm that uses a binary heap data structure to build a max-heap and then repeatedly extracts the maximum element.
 
 - Interactive visualization with:
-  - Random array generation (10 distinct numbers between 10 and 99)
-  - Step-by-step animation of the sorting process
+  - Random array generation (5 distinct numbers between 10 and 99)
+  - Slow, step-by-step animation of the sorting process for easier understanding
   - Color-coded elements to show comparisons, swaps, and sorted positions
   - Informative descriptions of each algorithm's approach and complexity
+  - Confetti celebration when sorting is complete
 
 ## How to Use
 
@@ -23,7 +24,8 @@ A web-based application to help people visualize and understand how different so
 2. Choose a sorting algorithm to visualize
 3. Click the "Sort" button to start the visualization
 4. Watch how the algorithm works through the animation
-5. Click "Reset" to generate a new random array and try again
+5. Enjoy the confetti celebration when the array is sorted
+6. Click "Reset" to generate a new random array and try again
 
 ## Technologies Used
 
@@ -39,6 +41,7 @@ A web-based application to help people visualize and understand how different so
 - `styles.css` - Styling for the entire application
 - `script.js` - Common JavaScript functions used across all visualizations
 - `bubble.js`, `quick.js`, `merge.js`, `insertion.js`, `heap.js` - Algorithm-specific JavaScript files
+- `confetti.js` - Confetti celebration animation
 
 ## Educational Purpose
 

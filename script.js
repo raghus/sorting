@@ -1,9 +1,9 @@
 // Utility functions for sorting visualizations
 
-// Generate a random array of 10 distinct numbers between 10 and 99
+// Generate a random array of 5 distinct numbers between 10 and 99
 function generateRandomArray() {
     const numbers = [];
-    while (numbers.length < 10) {
+    while (numbers.length < 5) {
         const randomNum = Math.floor(Math.random() * 90) + 10; // 10-99
         if (!numbers.includes(randomNum)) {
             numbers.push(randomNum);
@@ -40,9 +40,9 @@ function updateComparisonInfo(text) {
     comparisonInfo.textContent = text;
 }
 
-// Sleep function for animations
+// Sleep function for animations - increased duration for slower animation
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms * 2)); // Doubled the sleep time
 }
 
 // Reset all bar colors

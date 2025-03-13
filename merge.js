@@ -36,6 +36,9 @@ async function startMergeSort() {
     
     updateComparisonInfo('Array sorted!');
     
+    // Celebrate with confetti!
+    celebrateSuccess();
+    
     // Re-enable buttons
     document.getElementById('sort-button').disabled = false;
     document.getElementById('reset-button').disabled = false;
