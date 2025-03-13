@@ -78,6 +78,16 @@ function updateBar(index, value, maxValue) {
     bars[index].querySelector('.value').textContent = value;
 }
 
+// Track events with Vercel Analytics
+function trackEvent(eventName, properties = {}) {
+    if (window.va) {
+        window.va('event', {
+            name: eventName,
+            ...properties
+        });
+    }
+}
+
 // Initialize the visualization on page load
 document.addEventListener('DOMContentLoaded', () => {
     const arrayContainer = document.getElementById('array-container');
@@ -87,6 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Store the array in a data attribute for the sorting functions to use
         arrayContainer.dataset.array = JSON.stringify(randomArray);
+        
+        // Track page view with algorithm type
+        const pageTitle = document.title;
+        const algorithmType = pageTitle.split(' ')[0]; // Extract algorithm name from title
+        if (algorithmType && algorithmType !== 'Sorting') {
+            trackEvent('page_view', { algorithm: algorithmType });
+        }
     }
     
     // Add event listener to the reset button if it exists
@@ -98,6 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
             arrayContainer.dataset.array = JSON.stringify(randomArray);
             resetBarColors();
             updateComparisonInfo('');
+            
+            // Track reset event
+            const pageTitle = document.title;
+            const algorithmType = pageTitle.split(' ')[0];
+            trackEvent('reset_array', { algorithm: algorithmType });
+        });
+    }
+    
+    // Add event tracking to sort button
+    const sortButton = document.getElementById('sort-button');
+    if (sortButton) {
+        // We'll use the original click handler, but add tracking
+        const originalClickHandlers = sortButton.onclick;
+        sortButton.addEventListener('click', () => {
+            const pageTitle = document.title;
+            const algorithmType = pageTitle.split(' ')[0];
+            trackEvent('start_sort', { algorithm: algorithmType });
         });
     }
 }); 
