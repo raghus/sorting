@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heap Sort Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <script src="heap.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Heap Sort Visualization</h1>
+            <p>Watch how heap sort builds a max-heap and extracts elements to sort the array</p>
+        </header>
+        
+        <main>
+            <div class="visualization-container">
+                <div class="controls">
+                    <button id="sort-button">Sort</button>
+                    <button id="reset-button">Reset</button>
+                </div>
+                
+                <div id="array-container" class="array-container"></div>
+                
+                <div id="comparison-info" class="comparison-info"></div>
+            </div>
+            
+            <div class="explanation">
+                <h3>How Heap Sort Works</h3>
+                <p>Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure. It divides its input into a sorted and an unsorted region, and iteratively shrinks the unsorted region by extracting the largest element and moving it to the sorted region.</p>
+                <p>The algorithm has two main phases:</p>
+                <ol>
+                    <li><strong>Build Max Heap:</strong> Rearrange the array to form a max heap where the largest element is at the root.</li>
+                    <li><strong>Extract Elements:</strong> Repeatedly extract the maximum element from the heap and place it at the end of the array.</li>
+                </ol>
+                <p><strong>Time Complexity:</strong> O(n log n) in all cases (best, average, and worst).</p>
+                <p><strong>Space Complexity:</strong> O(1) as it sorts in-place.</p>
+                
+                <h3>Color Legend</h3>
+                <ul>
+                    <li><span style="color: #f59e0b;">Yellow</span> - Elements being compared during heapify</li>
+                    <li><span style="color: #8b5cf6;">Purple</span> - Elements being swapped</li>
+                    <li><span style="color: #ef4444;">Red</span> - Current root of the heap</li>
+                    <li><span style="color: #10b981;">Green</span> - Elements in their final sorted position</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" class="back-link">← Back to Algorithm List</a>
+        </main>
+    </div>
+</body>
+</html> 

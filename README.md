@@ -4,10 +4,12 @@ A web-based application to help people visualize and understand how different so
 
 ## Features
 
-- Visualize three popular sorting algorithms:
+- Visualize five popular sorting algorithms:
   - **Bubble Sort**: A simple comparison-based algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
   - **Quick Sort**: An efficient, divide-and-conquer sorting algorithm that works by selecting a 'pivot' element and partitioning the array around the pivot.
   - **Merge Sort**: A divide-and-conquer algorithm that divides the input array into two halves, recursively sorts them, and then merges the sorted halves.
+  - **Insertion Sort**: A simple sorting algorithm that builds the final sorted array one item at a time, similar to how you might sort playing cards in your hand.
+  - **Heap Sort**: A comparison-based sorting algorithm that uses a binary heap data structure to build a max-heap and then repeatedly extracts the maximum element.
 
 - Interactive visualization with:
   - Random array generation (10 distinct numbers between 10 and 99)
@@ -33,10 +35,10 @@ A web-based application to help people visualize and understand how different so
 ## Project Structure
 
 - `index.html` - Main page with links to individual algorithm pages
-- `bubble.html`, `quick.html`, `merge.html` - Individual algorithm visualization pages
+- `bubble.html`, `quick.html`, `merge.html`, `insertion.html`, `heap.html` - Individual algorithm visualization pages
 - `styles.css` - Styling for the entire application
 - `script.js` - Common JavaScript functions used across all visualizations
-- `bubble.js`, `quick.js`, `merge.js` - Algorithm-specific JavaScript files
+- `bubble.js`, `quick.js`, `merge.js`, `insertion.js`, `heap.js` - Algorithm-specific JavaScript files
 
 ## Educational Purpose
 
